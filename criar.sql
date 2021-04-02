@@ -22,6 +22,7 @@ CREATE TABLE FUNCIONARIO(
     dataDeNascimento DATE,
     inicioDeFuncoes DATE,
     PRIMARY KEY (numeroDeFuncionario)
+    --Completo e disjunto (restrição a ser implementada na próxima entrega).
 );
 
 CREATE TABLE MEDICO(
@@ -100,19 +101,17 @@ CREATE TABLE INTERNAMENTO(
     tratamento TEXT,
     numeroDoQuarto INTEGER,
     consulta INTEGER NOT NULL,
-    utente INTEGER NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT INTERNAMENTO_CONSULTA_FK FOREIGN KEY(consulta) REFERENCES CONSULTA(id),
-    CONSTRAINT INTERNAMETO_UTENTE_FK FOREIGN KEY(utente) REFERENCES UTENTE(numeroDeUtente),
     CONSTRAINT DATE_CHK CHECK (dataPrevistaDeAlta > dataDeEntrada)
-    --dataDeEntrada tem de ser igual ou posterior a data de Consulta
+    --A data de entrada tem de ser igual ou posterior à data de consulta (restrição a ser implementada na próxima entrega).
 );
 
 CREATE TABLE R_MEDICO_ESPECIALIDADE(
     numeroDeFuncionario INTEGER NOT NULL,
     andar INTEGER NOT NULL,
     ala TEXT NOT NULL,
-    PRIMARY KEY (numeroDeFuncionario,andar, ala),
+    PRIMARY KEY (numeroDeFuncionario, andar, ala),
     CONSTRAINT R_MEDICO_ESPECIALIDADE_MEDICO_FK FOREIGN KEY(numeroDeFuncionario) REFERENCES MEDICO(numeroDeFuncionario),
     CONSTRAINT R_MEDICO_ESPECIALIDADE_ESPECIALIDADE_FK FOREIGN KEY(andar, ala) REFERENCES ESPECIALIDADE(andar, alaHospitalar)
 );
@@ -134,7 +133,7 @@ CREATE TABLE R_EQUIPAMENTO_SALA_DE_EXAME(
     PRIMARY KEY(equipamento, sala),
     CONSTRAINT R_EQUIPAMENTO_SALA_DE_EXAME_EQIPAMENTO_FK FOREIGN KEY(equipamento) REFERENCES EQUIPAMENTO(id),
     CONSTRAINT R_EQUIPAMENTO_SALA_DE_EXAME_SALA_DE_EXAME_FK FOREIGN KEY(sala) REFERENCES SALA_DE_EXAME(numeroDaSala)
-    --O número de exemplares disponíveis não deve exceder o número de exemplares em stock
+    --O número de exemplares disponíveis não deve exceder o número de exemplares em stock (restrição a ser implementada na próxima entrega).
 );
 
 CREATE TABLE R_MANUTENCAO(
