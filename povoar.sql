@@ -35,9 +35,9 @@ INSERT INTO "FUNCIONARIO" VALUES (8, 'Antónia', '1999-08-22', '2021-01-19');
 INSERT INTO "MEDICO" VALUES (8);
 
 --Especialidades
-INSERT INTO "ESPECIALIDADE" VALUES (1,'Esquerda', 10, 2);
-INSERT INTO "ESPECIALIDADE" VALUES (2,'Esquerda', 12, 5);
-INSERT INTO "ESPECIALIDADE" VALUES (1,'Direita', 8, 7);
+INSERT INTO "ESPECIALIDADE" VALUES (1, 1,'Esquerda', 10, 2);
+INSERT INTO "ESPECIALIDADE" VALUES (2, 2,'Esquerda', 12, 5);
+INSERT INTO "ESPECIALIDADE" VALUES (3, 1,'Direita', 8, 7);
 
 --Utentes
 INSERT INTO "UTENTE" VALUES (1, 'Zeca', '2018-02-02');
@@ -47,15 +47,15 @@ INSERT INTO "UTENTE" VALUES (4, 'Ana', '1960-07-30');
 INSERT INTO "UTENTE" VALUES (5, 'Mariana', '2005-08-05');
 
 --Salas de exame
-INSERT INTO "SALA_DE_EXAME" VALUES (1, 10, 1, 'Esquerda');
-INSERT INTO "SALA_DE_EXAME" VALUES (2, 12, 2, 'Esquerda');
-INSERT INTO "SALA_DE_EXAME" VALUES (3, 12, 1, 'Direita');
+INSERT INTO "SALA_DE_EXAME" VALUES (1, 10, 1);
+INSERT INTO "SALA_DE_EXAME" VALUES (2, 12, 2);
+INSERT INTO "SALA_DE_EXAME" VALUES (3, 12, 3);
 
 --Consultas
-INSERT INTO "CONSULTA" VALUES (1, '2021-03-28', 'Queda das escadas.', 'normal', 2, 1, 'Esquerda', 1, 1);
-INSERT INTO "CONSULTA" VALUES (2, '2021-03-29', 'Dores no peito.', 'grave', 7, 1, 'Direita', 2, 3);
-INSERT INTO "CONSULTA" VALUES (3, '2021-03-30', 'Febre moderada.', 'normal', 8, 1, 'Direita', 5, 3);
-INSERT INTO "CONSULTA" VALUES (4, '2021-03-31', 'Atropelamento.', 'muito grave', 2, 1, 'Esquerda', 3, 1);
+INSERT INTO "CONSULTA" VALUES (1, '2021-03-28', 'Queda das escadas.', 'normal', 2, 1, 1, 1);
+INSERT INTO "CONSULTA" VALUES (2, '2021-03-29', 'Dores no peito.', 'grave', 7, 3, 2, 3);
+INSERT INTO "CONSULTA" VALUES (3, '2021-03-30', 'Febre moderada.', 'normal', 8, 3, 5, 3);
+INSERT INTO "CONSULTA" VALUES (4, '2021-03-31', 'Atropelamento.', 'muito grave', 2, 1, 3, 1);
 
 --Equipamento
 INSERT INTO "EQUIPAMENTO" VALUES (1,'Vacina do covid', '222222', '2021-06-01');
@@ -65,13 +65,13 @@ INSERT INTO "INTERNAMENTO" VALUES (1, '2021-03-29', '2021-04-06', 'Descanso.', 1
 INSERT INTO "INTERNAMENTO" VALUES (2, '2021-03-31', '2021-04-10', 'Operação de reconstrução.', 2, 4);
 
 --Relação entre médico e especialidade
-INSERT INTO "R_MEDICO_ESPECIALIDADE" VALUES (2, 1, 'Esquerda');
-INSERT INTO "R_MEDICO_ESPECIALIDADE" VALUES (5, 2, 'Esquerda');
-INSERT INTO "R_MEDICO_ESPECIALIDADE" VALUES (7, 1, 'Direita');
-INSERT INTO "R_MEDICO_ESPECIALIDADE" VALUES (8, 1, 'Direita');
+INSERT INTO "R_MEDICO_ESPECIALIDADE" VALUES (2, 1);
+INSERT INTO "R_MEDICO_ESPECIALIDADE" VALUES (5, 2);
+INSERT INTO "R_MEDICO_ESPECIALIDADE" VALUES (7, 3);
+INSERT INTO "R_MEDICO_ESPECIALIDADE" VALUES (8, 3);
 
 --Relação entre especialidade e equipamento
-INSERT INTO "R_ESPECIALIDADE_EQUIPAMENTO" VALUES (1, 'Direita', 1, 50);
+INSERT INTO "R_ESPECIALIDADE_EQUIPAMENTO" VALUES (3, 1, 50);
 
 --Relação entre equipamento e sala de exame
 INSERT INTO "R_EQUIPAMENTO_SALA_DE_EXAME" VALUES (1, 2, 25);

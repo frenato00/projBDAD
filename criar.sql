@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS R_ENFERMEIRO_INTERNAMENTO;
 
 CREATE TABLE FUNCIONARIO(
     numeroDeFuncionario INTEGER NOT NULL,
-    nome TEXT,
+    nome TEXT NOT NULL,
     dataDeNascimento DATE,
     inicioDeFuncoes DATE,
     PRIMARY KEY (numeroDeFuncionario)
@@ -44,17 +44,18 @@ CREATE TABLE TECNICO(
 );
 
 CREATE TABLE ESPECIALIDADE(
-    andar INTEGER NOT NULL,
-    alaHospitalar TEXT NOT NULL,
+    numeroDeEspecialidade INTEGER NOT NULL,
+    andar INTEGER,
+    alaHospitalar TEXT,
     numeroDeSalas INTEGER,
     lider INTEGER NOT NULL,
-    PRIMARY KEY (andar, alaHospitalar),
+    PRIMARY KEY (numeroDeEspecialidade),
     CONSTRAINT ESPECIALIDADE_MEDICO_FK FOREIGN KEY(lider) REFERENCES MEDICO(numeroDeFuncionario)
 );
 
 CREATE TABLE UTENTE(
     numeroDeUtente INTEGER NOT NULL,
-    nome TEXT,
+    nome TEXT NOT NULL,
     dataDeNascimento DATE,
     PRIMARY KEY(numeroDeUtente)
 );
@@ -62,10 +63,9 @@ CREATE TABLE UTENTE(
 CREATE TABLE SALA_DE_EXAME(
     numeroDaSala INTEGER NOT NULL,
     area INTEGER,
-    andar INTEGER NOT NULL,
-    ala TEXT NOT NULL,
+    numeroDeEspecialidade INTEGER NOT NULL,
     PRIMARY KEY(numeroDaSala),
-    CONSTRAINT SALA_DE_EXAME_ESPECIALIDADE_FK FOREIGN KEY(andar, ala) REFERENCES ESPECIALIDADE(andar, alaHospitalar)
+    CONSTRAINT SALA_DE_EXAME_ESPECIALIDADE_FK FOREIGN KEY(numeroDeEspecialidade) REFERENCES ESPECIALIDADE(numeroDeEspecialidade)
 );
 
 CREATE TABLE CONSULTA(
@@ -74,13 +74,12 @@ CREATE TABLE CONSULTA(
     razao TEXT,
     nivelDeUrgencia TEXT,
     medico INTEGER NOT NULL,
-    andar INTEGER NOT NULL,
-    ala TEXT NOT NULL,
+    numeroDeEspecialidade INTEGER NOT NULL,
     utente INTEGER NOT NULL,
     sala INTEGER NOT NULL,
     PRIMARY KEY(id),
     CONSTRAINT CONSULTA_MEDICO_FK FOREIGN KEY(medico) REFERENCES MEDICO(numeroDeFuncionario),
-    CONSTRAINT CONSULTA_ESPECIALIDADE_FK FOREIGN KEY(andar, ala) REFERENCES ESPECIALIDADE(andar, alaHospitalar),
+    CONSTRAINT CONSULTA_ESPECIALIDADE_FK FOREIGN KEY(numeroDeEspecialidade) REFERENCES ESPECIALIDADE(numeroDeEspecialidade),
     CONSTRAINT CONSULTA_UTENTE_FK FOREIGN KEY(utente) REFERENCES UTENTE(numeroDeUtente),
     CONSTRAINT CONSULTA_SALA_DE_EXAME_FK FOREIGN KEY(sala) REFERENCES SALA_DE_EXAME(numeroDaSala),
     CONSTRAINT NIVEL_DE_URGENCIA_CHK CHECK(nivelDeUrgencia LIKE 'normal' OR nivelDeUrgencia LIKE 'grave' OR nivelDeUrgencia LIKE 'muito grave')
@@ -109,20 +108,18 @@ CREATE TABLE INTERNAMENTO(
 
 CREATE TABLE R_MEDICO_ESPECIALIDADE(
     numeroDeFuncionario INTEGER NOT NULL,
-    andar INTEGER NOT NULL,
-    ala TEXT NOT NULL,
-    PRIMARY KEY (numeroDeFuncionario, andar, ala),
+    numeroDeEspecialidade INTEGER NOT NULL,
+    PRIMARY KEY (numeroDeFuncionario, numeroDeEspecialidade),
     CONSTRAINT R_MEDICO_ESPECIALIDADE_MEDICO_FK FOREIGN KEY(numeroDeFuncionario) REFERENCES MEDICO(numeroDeFuncionario),
-    CONSTRAINT R_MEDICO_ESPECIALIDADE_ESPECIALIDADE_FK FOREIGN KEY(andar, ala) REFERENCES ESPECIALIDADE(andar, alaHospitalar)
+    CONSTRAINT R_MEDICO_ESPECIALIDADE_ESPECIALIDADE_FK FOREIGN KEY(numeroDeEspecialidade) REFERENCES ESPECIALIDADE(numeroDeEspecialidade)
 );
 
 CREATE TABLE R_ESPECIALIDADE_EQUIPAMENTO(
-    andar INTEGER NOT NULL,
-    ala TEXT NOT NULL,
+    numeroDeEspecialidade INTEGER NOT NULL,
     equipamento INTEGER NOT NULL,
     exemplaresEmStock INTEGER,
-    PRIMARY KEY (andar, ala, equipamento),
-    CONSTRAINT R_ESPECIALIDADE_EQUIPAMENTO_ESPECIALIDADE_FK FOREIGN KEY(andar, ala) REFERENCES ESPECIALIDADE(andar, alaHospitalar),
+    PRIMARY KEY (numeroDeEspecialidade, equipamento),
+    CONSTRAINT R_ESPECIALIDADE_EQUIPAMENTO_ESPECIALIDADE_FK FOREIGN KEY(numeroDeEspecialidade) REFERENCES ESPECIALIDADE(numeroDeEspecialidade),
     CONSTRAINT R_ESPECIALIDADE_EQUIPAMENTO_EQUIMAPENTO_FK FOREIGN KEY(equipamento) REFERENCES EQUIPAMENTO(id)
 );
 
