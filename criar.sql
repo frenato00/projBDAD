@@ -21,7 +21,6 @@ CREATE TABLE FUNCIONARIO(
     nome TEXT NOT NULL,
     dataDeNascimento DATE,
     inicioDeFuncoes DATE
-    --Completo e disjunto (restrição a ser implementada na próxima entrega).
 );
 
 CREATE TABLE MEDICO(
