@@ -9,7 +9,7 @@ BEGIN
         ELSE
             NEW.exemplares
         END
-    WHERE equipamento = NEW.equipamento;
+    WHERE equipamento = NEW.equipamento AND sala = NEW.sala;
 
     UPDATE R_ESPECIALIDADE_EQUIPAMENTO
     SET exemplaresEmStock = CASE
