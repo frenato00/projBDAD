@@ -89,7 +89,6 @@ CREATE TABLE INTERNAMENTO(
     numeroDoQuarto INTEGER,
     consulta INTEGER NOT NULL REFERENCES CONSULTA(id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT DATE_CHK CHECK (dataPrevistaDeAlta > dataDeEntrada)
-    --A data de entrada tem de ser igual ou posterior à data de consulta (restrição a ser implementada na próxima entrega).
 );
 
 CREATE TABLE R_MEDICO_ESPECIALIDADE(
@@ -109,16 +108,13 @@ CREATE TABLE R_ESPECIALIDADE_EQUIPAMENTO(
     CONSTRAINT R_ESPECIALIDADE_EQUIPAMENTO_ESPECIALIDADE_FK FOREIGN KEY(numeroDeEspecialidade) REFERENCES ESPECIALIDADE(numeroDeEspecialidade) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
-
 CREATE TABLE R_EQUIPAMENTO_SALA_DE_EXAME(
     equipamento INTEGER NOT NULL,
     sala INTEGER NOT NULL,
-    exemplaresDisponiveis INTEGER,
+    exemplares INTEGER,
     PRIMARY KEY(equipamento, sala),
     CONSTRAINT R_EQUIPAMENTO_SALA_DE_EXAME_EQIPAMENTO_FK FOREIGN KEY(equipamento) REFERENCES EQUIPAMENTO(id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT R_EQUIPAMENTO_SALA_DE_EXAME_SALA_DE_EXAME_FK FOREIGN KEY(sala) REFERENCES SALA_DE_EXAME(numeroDaSala) ON DELETE CASCADE ON UPDATE CASCADE
-    --O número de exemplares disponíveis não deve exceder o número de exemplares em stock (restrição a ser implementada na próxima entrega).
 );
 
 CREATE TABLE R_MANUTENCAO(
